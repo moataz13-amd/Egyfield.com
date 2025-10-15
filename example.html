@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dark Mode Example — EgyField Theme</title>
+
+  <!-- 8) Inline no-flash script: apply saved theme before paint -->
+  <script>
+    (function(){
+      try {
+        var saved = localStorage.getItem('theme');
+        var theme = (saved === 'light' || saved === 'dark') ? saved : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (_) {
+        // Fallback to light if anything goes wrong
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="assets/theme.css">
+
+  <style>
+    /* Page demo layout only */
+    main { padding: 24px 0; }
+    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
+    .hero img { width: 100%; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .stack { display: grid; gap: 10px; }
+  </style>
+</head>
+<body>
+  <!-- 2) Navbar with toggle -->
+  <header class="navbar">
+    <div class="container inner">
+      <div class="brand">
+        <span class="badge">EXPORT</span>
+        <span>EgyField</span>
+      </div>
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <button id="theme-toggle" aria-pressed="false" title="Switch theme">
+          <span data-icon>☀️</span>
+          <span data-text>Light</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section hero">
+      <div class="stack">
+        <h1>Light/Dark Theme System</h1>
+        <p class="muted">This page demos the global theme variables on common UI components.</p>
+        <div class="actions">
+          <button class="btn">Primary Action</button>
+          <button class="btn-outline">Secondary</button>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1587049352862-1ee13d0a8f89?q=80&w=1200&auto=format&fit=crop" alt="Containers in port">
+    </section>
+
+    <section class="section">
+      <h2>Cards</h2>
+      <div class="grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1506807803488-8eafc15316c0?q=80&w=1200&auto=format&fit=crop" alt="">
+          <div class="body">
+            <div class="title">Broccoli</div>
+            <div class="muted">Export-grade • Egypt Origin</div>
+            <div class="actions"><button class="btn-outline">Request Quote</button></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1514512364185-4c2b6a64001f?q=80&w=1200&auto=format&fit=crop" alt="">
+          <div class="body">
+            <div class="title">Fresh Herbs Mix</div>
+            <div class="muted">Parsley • Dill • Coriander</div>
+            <div class="actions"><button class="btn-outline">Request Quote</button></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Form</h2>
+      <form class="form" action="#" method="post">
+        <label class="label" for="name">Company Name</label>
+        <input class="input" id="name" name="name" placeholder="EgyField Imports LLC">
+
+        <label class="label" for="email">Email</label>
+        <input class="input" id="email" name="email" type="email" placeholder="buyer@example.com">
+
+        <label class="label" for="msg">Message</label>
+        <textarea class="textarea" id="msg" name="msg" rows="4" placeholder="I would like a quote for..."></textarea>
+
+        <div class="actions">
+          <button class="btn" type="submit">Send</button>
+          <button class="btn-outline" type="reset">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="section">
+      <h2>Table</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Season</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Garlic</td>
+            <td>Fresh</td>
+            <td>Seasonal</td>
+            <td>Available</td>
+          </tr>
+          <tr>
+            <td>Frozen Spinach</td>
+            <td>Frozen</td>
+            <td>Year-round</td>
+            <td>Available</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Modal</h2>
+      <div class="actions">
+        <button class="btn-outline" id="open-modal">Open Modal</button>
+      </div>
+      <div class="modal-backdrop" id="demo-modal">
+        <div class="modal">
+          <div class="modal-header">
+            <div class="modal-title">Sample Modal</div>
+            <button class="modal-close" id="close-modal" aria-label="Close">×</button>
+          </div>
+          <p class="muted">This modal follows the current theme.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/theme.js"></script>
+  <script>
+    // Simple modal demo
+    const modal = document.getElementById('demo-modal');
+    document.getElementById('open-modal').addEventListener('click', ()=> modal.classList.add('show'));
+    document.getElementById('close-modal').addEventListener('click', ()=> modal.classList.remove('show'));
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.classList.remove('show'); });
+  </script>
+</body>
+</html>
