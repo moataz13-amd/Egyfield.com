@@ -395,7 +395,7 @@ function setLang(x){ lang=x; localStorage.setItem('lang',x);
   // Show +1500 clients for KPI #3 in both languages
   const kpi3El = document.querySelector('.kpis [data-i18n="kpi3"], [data-i18n="kpi3"].kpi, .kpi [data-i18n="kpi3"], [data-i18n="kpi3"].kpi-value');
   if(kpi3El){
-    kpi3El.textContent = (lang==='ar') ? '+1500 عميل' : '+1500 clients';
+    kpi3El.textContent = (lang==='ar') ? '+50 عميل' : '+50 clients';
   }
   // Auto-translate product quote links
   document.querySelectorAll("a[href^='contact.html?product=']").forEach(a=>{
