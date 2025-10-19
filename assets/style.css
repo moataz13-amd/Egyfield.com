@@ -28,26 +28,74 @@
 
 /* الوضع على الموبايل */
 @media (max-width: 768px) {
+  /* Make header items in one row on mobile */
+  .nav {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 0;
+    gap: 10px;
+    flex-wrap: nowrap; /* keep items on one line */
+  }
+  .logo { flex: 1; min-width: 0; }
+  .logo img { height: 48px !important; }
+  /* Off-canvas drawer */
   #navbar {
-    display: none; /* افتراضي مخفي */
+    display: flex; /* we'll hide via transform/pointer-events */
     flex-direction: column;
-    background: #fff;
-    padding: 10px;
-    position: static; /* يظهر تحت الشعار مباشرة */
-    top: auto;
-    left: auto;
-    right: auto;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 100%;
+    gap: 10px;
+    background: var(--bg); /* use CSS variable for dark mode */
+    color: var(--text); /* use CSS variable for dark mode */
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: min(86vw, 340px);
+    padding: 18px 16px;
+    background: var(--bg);
+    box-shadow: -12px 0 28px rgba(0,0,0,0.12);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    transition: transform .25s ease;
+    z-index: 1200;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  #navbar.show {
-    display: flex; /* يظهر عند الضغط */
-  }
+  #navbar.show { transform: translateX(0); /* slide in */ }
 
-  .menu-toggle {
-    display: block; /* يظهر زرار ☰ */
+  #navbar a, #navbar button {
+    text-align: left;
+    padding: 12px 10px;
+    border-radius: 10px;
+    gap: 8px;
+    color: var(--text);
   }
+  #navbar a:hover,
+  #navbar button:hover { background: var(--bg-elev-1); }
+  #navbar a:focus-visible,
+  #navbar button:focus-visible { outline: 3px solid #cbd5e1; outline-offset: 2px; }
+
+  .menu-toggle { display: block; /* يظهر زرار ☰ */ }
+
+  /* Close button inside drawer */
+  #navbar .nav-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #0f172a;
+    font-size: 20px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  #navbar .nav-close:hover { background: rgba(15,23,42,0.06); }
+  #navbar .nav-close:focus-visible { outline: 3px solid #cbd5e1; outline-offset: 2px; }
 }
 
 
@@ -85,9 +133,26 @@ header {
   top: 0;
   width: 100%;
   z-index: 1000;       /* عشان يبقى فوق باقي العناصر */
-  background: #fff;    /* خلي الخلفية بيضا أو اللي تحب */
-  border-bottom: 1px solid #ddd; /* خط بسيط تحت الهيدر */
+  background: var(--bg);    /* يتبع الثيم */
+  border-bottom: 1px solid var(--border); /* يتبع الثيم */
 }
+
+/* Overlay for mobile drawer */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 1100;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.nav-overlay.show { opacity: 1; pointer-events: auto; }
+
+/* Lock scroll when nav open */
+body[data-nav-open="true"] { overflow: hidden; }
 
 .nav {
   display:flex;
@@ -450,16 +515,108 @@ footer {
   -ms-border-radius:10px;
   -o-border-radius:10px;
 }
+
+/* Modern theme toggle (dark/light) */
+#theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+#theme-toggle [data-icon] { width: 18px; height: 18px; display: inline-grid; place-items: center; }
+#theme-toggle [data-text] { display: inline-block; }
+#theme-toggle:hover { background: #f8fafc; border-color: #94a3b8; }
+#theme-toggle:active { transform: translateY(1px); }
+#theme-toggle:focus-visible { outline: 3px solid #a7f3d0; outline-offset: 2px; }
+
+/* Dark theme variant */
+html[data-theme="dark"] #theme-toggle {
+  background: #0b1220;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+html[data-theme="dark"] #theme-toggle:hover {
+  background: #0f172a;
+  border-color: #475569;
+}
+
+/* Compact on mobile */
+@media (max-width: 768px) {
+  #theme-toggle { padding: 8px 10px; }
+  #theme-toggle [data-text] { display: none; }
+}
 .whatsapp-fab {
   position:fixed;
   right:16px;
   bottom:16px;
+  /* Visual */
   background:#25d366;
   color:#fff;
-  border-radius:999px;
-  padding:14px 18px;
-  font-weight:700;
-  box-shadow:0 6px 18px rgba(0,0,0,.15);
+  border-radius:50%;
+  width:clamp(52px, 6.5vw, 60px);
+  height:clamp(52px, 6.5vw, 60px);
+  box-shadow:0 10px 24px rgba(0,0,0,.22), 0 4px 8px rgba(0,0,0,.12);
+  border: none;
+  /* Layout */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  /* Typography (hide label visually, aria-label remains for a11y) */
+  font-size:0;
+  text-decoration:none;
+  /* Interaction */
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  z-index: 1100;
+}
+
+.whatsapp-fab::before{
+  content:"";
+  display:block;
+  width:clamp(24px, 3vw, 28px);
+  height:clamp(24px, 3vw, 28px);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+  /* Inline SVG icon (white WhatsApp logo) */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="white"><path d="M19.11 17.57c-.26-.13-1.53-.76-1.77-.85-.24-.09-.42-.13-.6.13-.18.26-.69.85-.85 1.02-.16.18-.31.2-.57.07-.26-.13-1.08-.4-2.06-1.28-.76-.68-1.27-1.52-1.42-1.78-.15-.26-.02-.4.11-.53.11-.11.26-.29.38-.44.13-.15.17-.24.26-.4.09-.18.04-.33-.02-.46-.06-.13-.6-1.45-.82-1.98-.22-.53-.44-.45-.6-.46-.15-.01-.33-.01-.51-.01s-.46.07-.7.33c-.24.26-.92.9-.92 2.2 0 1.3.94 2.56 1.07 2.74.13.18 1.86 2.85 4.51 3.99.63.27 1.12.43 1.5.55.63.2 1.2.17 1.65.1.5-.08 1.53-.62 1.75-1.22.22-.6.22-1.12.15-1.22-.07-.1-.24-.16-.5-.29z"/><path d="M26.66 5.34C24.2 2.88 20.86 1.5 17.3 1.5 9.72 1.5 3.5 7.72 3.5 15.3c0 2.41.64 4.76 1.85 6.83L3.5 30.5l8.56-1.79c1.99 1.09 4.23 1.66 6.54 1.66 7.58 0 13.8-6.22 13.8-13.8 0-3.56-1.38-6.9-3.84-9.36zM17.6 27.5c-2.13 0-4.2-.57-6.02-1.66l-.43-.25-5.08 1.06 1.08-4.95-.26-.45c-1.14-1.93-1.74-4.15-1.74-6.4 0-6.9 5.61-12.5 12.5-12.5 3.34 0 6.47 1.3 8.83 3.66 2.36 2.36 3.66 5.49 3.66 8.83 0 6.9-5.61 12.5-12.5 12.5z"/></svg>');
+}
+
+.whatsapp-fab:hover{
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:0 12px 28px rgba(0,0,0,.25), 0 6px 12px rgba(0,0,0,.14);
+  background-color:#1ebe5d;
+}
+
+.whatsapp-fab:active{
+  transform: translateY(0) scale(0.98);
+}
+
+.whatsapp-fab:focus-visible{
+  outline: 3px solid rgba(37,211,102,0.5);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .whatsapp-fab{
+    transition: none;
+  }
+  .whatsapp-fab:hover,
+  .whatsapp-fab:active{
+    transform: none;
+  }
+}
+
+@media (max-width: 768px){
+  .whatsapp-fab{ right: 12px; }
 }
 
 .btn-outline {
@@ -684,6 +841,8 @@ footer {
   .hero-viewport { height: auto; min-height: 85dvh; }
   /* Respect safe-area on mobile for FAB */
   .whatsapp-fab { bottom: max(16px, env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); }
+  /* Create breathing room so FAB doesn't overlap last content */
+  body { padding-bottom: calc(16px + clamp(52px, 6.5vw, 60px) + env(safe-area-inset-bottom)); }
 }
 
 /* Hide placeholder "Download Spec Sheet" blocks site-wide without editing each page */
@@ -724,9 +883,40 @@ footer {
 /* على الموبايل: إظهار الاسم والشارة الأصليين وإخفاء pseudo */
 @media (max-width: 768px) {
   .brand-left { display:none; }
+  /* Keep logo parts (image + text + badge) on one line */
   .logo span, .logo .badge { display: inline; }
-  .logo img { height: 56px !important; } /* تكبير الشعار على الموبايل */
-  /* تكبير اسم الشركة على الموبايل */
-  .logo { font-size: 24px; }
-  .logo .badge { font-size: 14px; padding: 4px 10px; text-decoration: underline; }
+  .logo { font-size: 18px; max-width: calc(100% - 60px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .logo img { height: 38px !important; flex: 0 0 auto; }
+  .logo .badge { font-size: 12px; padding: 2px 8px; }
+  /* Force header items to stay on one row on mobile (override earlier column layout) */
+  .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    flex-wrap: nowrap;
+  }
+  .logo { flex: 1 1 auto; min-width: 0; gap: 8px; font-size: 18px; }
+  .logo img { height: 40px !important; }
+  .menu-toggle { 
+    flex: 0 0 auto; 
+    background: transparent !important; 
+    color: var(--text) !important; 
+    border: 1px solid #cbd5e1; 
+    padding: 6px 8px; 
+    border-radius: 10px; 
+    line-height: 1; 
+    box-shadow: none; 
+    font-size: 22px; 
+    margin: 0 !important;
+    width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+  }
+}
+/* Reserve space for menu button on mobile */
+@media (max-width: 768px) {
+  .nav { padding-right: 40px; }
+  /* Prevent children from wrapping to next line */
+  .nav > * { flex-shrink: 0; }
 }

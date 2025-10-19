@@ -8,9 +8,54 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script>
   <script>
-  function toggleMenu() {
-    document.getElementById("navbar").classList.toggle("show");
+  function toggleMenu(open) {
+    var nav = document.getElementById('navbar');
+    var overlay = document.getElementById('nav-overlay');
+    var toggleBtn = document.getElementById('menu-toggle');
+    var isOpen = (open !== undefined) ? !!open : !nav.classList.contains('show');
+    nav.classList.toggle('show', isOpen);
+    if (overlay) overlay.classList.toggle('show', isOpen);
+    document.body.setAttribute('data-nav-open', isOpen ? 'true' : 'false');
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-expanded', String(isOpen));
+      toggleBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
   }
+  // Close on Escape
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+  // Delegate clicks inside nav to close on link taps (mobile UX)
+  document.addEventListener('DOMContentLoaded', function(){
+    var nav = document.getElementById('navbar');
+    if (nav) {
+      nav.addEventListener('click', function(e){
+        var t = e.target;
+        if (t && t.closest('a')) toggleMenu(false);
+      });
+    }
+  });
+  // Modern theme toggle wiring
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    function currentTheme(){ return document.documentElement.getAttribute('data-theme') || 'light'; }
+    function render(){
+      var t = currentTheme();
+      var icon = btn.querySelector('[data-icon]');
+      var text = btn.querySelector('[data-text]');
+      if (icon) icon.textContent = (t === 'dark') ? '🌙' : '☀️';
+      if (text) text.textContent = (t === 'dark') ? 'Dark' : 'Light';
+      btn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+      btn.setAttribute('title', t === 'dark' ? 'Switch to Light' : 'Switch to Dark');
+    }
+    btn.addEventListener('click', function(){
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      if (typeof setTheme === 'function') setTheme(next);
+      render();
+    });
+    render();
+  });
   </script>
   <!-- Meta Pixel placeholder: replace PIXEL_ID with your Facebook Pixel id -->
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','PIXEL_ID');fbq('track','PageView');</script>
@@ -55,9 +100,11 @@
       <img src="WhatsApp Image 2025-09-09 at 19.00.39_d8e32355.jpg" alt="EgyField logo" style="height:70px;margin-right:10px;border-radius:10px"/>
       <span>EgyField</span>
       <span class="badge">EXPORT</span></a>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" id="menu-toggle" aria-controls="navbar" aria-expanded="false" aria-label="Open menu" onclick="toggleMenu()">☰</button>
     
       <nav id="navbar">
+        <!-- Close button visible on mobile -->
+        <button type="button" class="nav-close" onclick="toggleMenu(false)" aria-label="Close menu">✕</button>
         <a href="index.html" data-i18n="home">Home</a>
         <a href="products.html" data-i18n="products">Products</a>
         <a href="about.html" data-i18n="about">About</a>
@@ -66,10 +113,13 @@
         <a class="btn" href="contact.html" data-i18n="contact">Contact</a>
         <!-- <button onclick="setLang('ar')">AR</button>
         <button onclick="setLang('en')">EN</button> -->
-        <button id="theme-toggle" aria-pressed="false" title="Switch theme"><span data-icon>☀️</span> <span data-text>Light</span></button>
+        <button id="theme-toggle" aria-pressed="false" title="Switch theme" onclick="(function(){var el=document.documentElement;var next=(el.getAttribute('data-theme')==='dark')?'light':'dark'; if(window.setTheme){setTheme(next);} else {el.setAttribute('data-theme',next);} })()"><span data-icon>☀️</span> <span data-text>Light</span></button>
       </nav>
   </div>
 </header>
+
+<!-- Mobile nav overlay for off-canvas drawer -->
+<div class="nav-overlay" id="nav-overlay" onclick="toggleMenu(false)"></div>
 
 
 
