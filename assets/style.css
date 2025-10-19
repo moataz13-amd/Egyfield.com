@@ -57,7 +57,8 @@ html,body {
   padding:0;
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;line-height:1.5
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;line-height:1.5;
+  overflow-x: hidden; /* prevent horizontal scrollbars from 100%/full-bleed sections */
 }
 
 .lang-toggle a {
@@ -324,6 +325,7 @@ header {
   color:#053;
   padding:12px 16px;
   border-radius:12px;
+  gap: 6px;
   margin:8px;
   display:inline-block;
   -webkit-border-radius:12px;
@@ -348,6 +350,38 @@ header {
   -moz-border-radius:8px;
   -ms-border-radius:8px;
   -o-border-radius:8px;
+}
+
+/* Compact certificate badges inside the hero section */
+.hero .badges.certs { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+  margin: 8px 0 12px; 
+}
+.hero .badges.certs img { 
+  height: 28px; 
+  padding: 4px 6px; 
+  border-radius: 6px; 
+  background: #fff; 
+  border: 1px solid #e2e8f0; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
+}
+@media (min-width: 768px) { 
+  .hero .badges.certs img { height: 34px; } 
+}
+
+/* Tidy KPIs for a cleaner compact look in this hero block */
+.hero .kpis { 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  gap: 10px; 
+  margin-top: 12px; 
+}
+.hero .kpi { 
+  padding: 10px 12px; 
+  font-size: 14px; 
+  font-weight: 600; 
 }
 
 .contact {
@@ -438,6 +472,177 @@ footer {
   -moz-border-radius:12px;
   -ms-border-radius:12px;
   -o-border-radius:12px;
+}
+
+/* ==========================
+   Full-screen Responsive Hero
+   ========================== */
+.hero-viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* fallback */
+  min-height: 100dvh; /* more stable on mobile to avoid bottom browser bar issues */
+  overflow: hidden;
+  display: grid;
+  place-items: center; /* center content both axes */
+  isolation: isolate; /* overlay stacking */
+  background: #0e0e0e; /* fallback under image */
+}
+
+.hero-viewport .hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-viewport .hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* keep proportions, fill */
+  object-position: center;/* center crop */
+  display: block;
+}
+
+.hero-viewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.32); /* subtle dark overlay for readability */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(12px, 3vw, 32px);
+  color: #fff;
+}
+
+.hero-content h1 {
+  margin: 0 0 10px;
+  font-weight: 800;
+  font-size: clamp(26px, 5.5vw, 52px);
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  letter-spacing: 0.2px;
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: clamp(14px, 2.2vw, 20px);
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* ==========================
+   KPI overlay on hero image
+   ========================== */
+.hero-counters {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(16px, 6vh, 56px);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: min(92vw, 1100px);
+}
+
+.hero-counters .kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+
+.hero-counters .kpi,
+.hero-counters .actions a {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: center;
+  backdrop-filter: blur(4px) saturate(120%);
+  -webkit-backdrop-filter: blur(4px) saturate(120%);
+}
+
+.hero-counters .actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.hero-counters .actions .btn-outline {
+  background: var(--brand);
+  border-color: var(--brand);
+  font-weight: 700;
+}
+.hero-counters .actions .btn-outline:hover {
+  background: var(--brand-2);
+  border-color: var(--brand-2);
+}
+
+@media (max-width: 900px) {
+  .hero-counters { bottom: clamp(12px, 4vh, 36px); }
+  .hero-counters .kpis { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ==========================
+   Inline Hero Strip Layout
+   ========================== */
+.hero-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto; /* certs | kpis | side (note/actions) */
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0 8px;
+  margin-top: clamp(12px, 3vw, 28px); /* space from the hero above */
+}
+
+.hero-inline .kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin: 0; /* override */
+}
+
+.hero-inline .side {
+  justify-self: end;
+  text-align: right;
+}
+
+.hero-inline .actions a { margin: 0 6px; }
+
+/* Add clear spacing between action buttons */
+.hero-inline .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* space between buttons */
+  justify-content: center;
+}
+
+/* Solid brand buttons inside the inline hero only */
+.hero-inline .actions .btn-outline {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+  font-weight: 700;
+}
+.hero-inline .actions .btn-outline:hover {
+  background: var(--brand-2);
+  border-color: var(--brand-2);
+}
+
+/* Slightly more breathing room between KPI chips */
+.hero-inline .kpis { gap: 12px; }
+
+@media (max-width: 900px) {
+  .hero-inline { grid-template-columns: 1fr; text-align: center; }
+  .hero-inline .side { justify-self: center; text-align: center; }
 }
 .filters {
   display:flex;

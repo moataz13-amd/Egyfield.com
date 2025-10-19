@@ -71,37 +71,43 @@
   </div>
 </header>
 
-<main class="container">
-  <section class="hero">
-    <div>
-      <h1 data-i18n="hero_h1">Trusted Egyptian supplier of fresh & frozen produce — export-ready</h1>
-      <p data-i18n="hero_p">EgyField delivers EU-grade packing, fast shipping, and competitive FOB/CIF pricing.</p>
-      <div class="badges">
-        <img src="أيزو-22000.png" alt="ISO" />
-        <img src="HACCP.png" alt="HACCP" />
-        <img src="download (5).png" alt="CE" />
-      </div>
-      <div class="kpis">
-        <div class="kpi" data-i18n="kpi1">+80 products</div>
-        <div class="kpi" data-i18n="kpi2">+12 countries</div>
-        <div class="kpi" data-i18n="kpi3">+50 clients</div>
-      </div>
-      <p class="note">Payments: Irrevocable L/C or T/T — SGS/Intertek inspection available on request.</p>
-      <div class="actions"><a class="btn-outline" href="products.html" data-i18n="products">Products</a> <a class="btn-outline" href="contact.html" data-i18n="hero_cta">Request a Quote</a></div>
-    </div>
-    <picture class="hero-media">
-      <source type="image/avif" srcset="gemini_generated_image_jp3dtajp3dtajp3d-mjEvGz5DjeI9Oxpo.avif" />
-      <img
-        class="hero-image"
-        src="gemini_generated_image_jp3dtajp3dtajp3d-mjEvGz5DjeI9Oxpo.avif"
-        alt="Export containers in port"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
-    </picture>
-  </section>
 
+
+<!-- Full-screen responsive hero -->
+<section class="hero-viewport" aria-label="Homepage hero">
+  <!-- Background image (keeps full-bleed and proportional) -->
+  <picture class="hero-bg" aria-hidden="true">
+    <source type="image/avif" srcset="gemini_generated_image_jp3dtajp3dtajp3d-mjEvGz5DjeI9Oxpo.avif" />
+    <img
+      src="gemini_generated_image_jp3dtajp3dtajp3d-mjEvGz5DjeI9Oxpo.avif"
+      alt="Export containers in port"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </picture>
+
+  <!-- Centered overlay text -->
+  <div class="hero-content">
+    <h1 data-i18n="hero_h1">Trusted Egyptian supplier of fresh & frozen produce — export-ready</h1>
+    <p data-i18n="hero_p">EgyField delivers EU-grade packing, fast shipping, and competitive FOB/CIF pricing.</p>
+  </div>
+
+  <!-- Overlay counters like KPI badges on the hero image -->
+  <div class="hero-counters" aria-label="Key performance indicators">
+    <div class="kpis">
+      <div class="kpi" data-i18n="kpi1">+80 products</div>
+      <div class="kpi" data-i18n="kpi2">+12 countries</div>
+      <div class="kpi" data-i18n="kpi3">+50 clients</div>
+    </div>
+    <div class="actions">
+      <a class="btn-outline" href="products.html" data-i18n="products">Products</a>
+      <a class="btn-outline" href="contact.html" data-i18n="hero_cta">Request a Quote</a>
+    </div>
+  </div>
+</section>
+
+<main class="container">
   <section id="catalog" class="section">
     <h2 data-i18n="products_h2">Product Catalog</h2>
     <div class="filters">
