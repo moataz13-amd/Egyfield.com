@@ -680,6 +680,10 @@ footer {
   .product-split{ grid-template-columns:1fr }
   /* Safety override for legacy inline grid blocks (two columns) */
   main .section > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  /* Make hero not exceed viewport height beneath sticky header */
+  .hero-viewport { height: auto; min-height: 85dvh; }
+  /* Respect safe-area on mobile for FAB */
+  .whatsapp-fab { bottom: max(16px, env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); }
 }
 
 /* Hide placeholder "Download Spec Sheet" blocks site-wide without editing each page */
