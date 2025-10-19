@@ -859,6 +859,8 @@ html[data-theme="dark"] #theme-toggle:hover {
     align-items: center;
     padding: 10px 0; /* تقليل مساحة الناف على الديسكتوب */
   }
+  /* Hide mobile-only close button on desktop */
+  #navbar .nav-close { display: none !important; }
   /* عنصر على اليسار يحوي الاسم والشارة */
   .brand-left { grid-column: 1; justify-self: start; display: flex; align-items: center; gap: 10px; padding-left: 16px; }
   .brand-left .brand-name { font-weight: 800; color: var(--brand-2); font-size: 28px; }
