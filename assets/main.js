@@ -819,6 +819,19 @@ if (document.readyState !== 'loading') {
 
 // On DOMContentLoaded, run the rest of initializers, with detailsButtonsInit first to ensure buttons are visible immediately
 window.addEventListener('DOMContentLoaded', ()=>{
+  // Apply non-critical image loading hints early
+  try {
+    (function optimizeImages(){
+      // Skip the hero background image which is already marked eager/high priority
+      const isHeroBg = (img)=> img.closest && img.closest('.hero-viewport .hero-bg');
+      const imgs = document.querySelectorAll('img');
+      imgs.forEach(img=>{
+        if (isHeroBg(img)) return;
+        if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+        if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
+      });
+    })();
+  } catch(_){}
   // If navigation came from Home/Logo click, force top of homepage and clear hash once
   try {
     const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
