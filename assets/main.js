@@ -507,9 +507,9 @@ function ensureLogoImage(){
   const hasImg = !!logo.querySelector('img');
   if(hasImg) return;
   const inProducts = /\/products\//.test(location.pathname);
-  const src = (inProducts? '../' : '') + 'WhatsApp Image 2025-09-09 at 19.00.39_d8e32355.jpg';
+  const src = (inProducts? '../' : '') + 'logo.png';
   const img = document.createElement('img');
-  img.src = src; img.alt = 'EgyField logo'; img.style.height = '36px'; img.style.marginRight='10px'; img.style.borderRadius='6px';
+  img.src = src; img.alt = 'EgyField logo'; img.style.height = '36px'; img.style.marginRight='10px'; img.style.borderRadius='0px';
   logo.insertBefore(img, logo.firstChild);
 }
 // Ensure theme assets (CSS + JS) and toggle button exist on page
