@@ -326,8 +326,14 @@ const ProductPages = {
 function detailsButtonsInit(){
   // Do not inject View Details buttons on About page, Articles listing, or inside any /articles/ page
   try {
-    const page = (location.pathname.split('/').pop() || '').toLowerCase();
-    if (page === 'about.html' || page === 'articles.html' || /\/articles\//.test(location.pathname)) return;
+    const pathname = (location.pathname || '').toLowerCase();
+    const last = (pathname.split('/').pop() || '').toLowerCase();
+    const isAbout = last === 'about.html' || last === 'about';
+    // articles listing can be articles.html, /articles, or /articles/
+    const isArticlesList = last === 'articles.html' || last === 'articles' || /\/articles\/?$/.test(pathname);
+    // any nested article detail pages under /articles/
+    const inArticlesDir = /(^|\/)articles\//.test(pathname);
+    if (isAbout || isArticlesList || inArticlesDir) return;
   } catch(_) {}
   const cards = document.querySelectorAll('.card');
   cards.forEach(card=>{
@@ -336,7 +342,8 @@ function detailsButtonsInit(){
       const aWrap = card.closest('a.card');
       if (aWrap) {
         const href = (aWrap.getAttribute('href')||'');
-        if (/\/articles\//.test(href)) return; // don't modify article cards
+        // match relative or absolute links to articles directory
+        if (/(^|\/)articles\//.test(href)) return; // don't modify article cards
       }
     } catch(_) {}
     const body = card.querySelector('.body'); if(!body) return;
