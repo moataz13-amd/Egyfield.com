@@ -705,8 +705,18 @@ html[data-theme="dark"] #theme-toggle:hover {
     /* center content both axes */
     isolation: isolate;
     /* overlay stacking */
-    background: #0e0e0e;
+    /* Let letterbox adopt page theme */
+    background: inherit;
     /* fallback under image */
+}
+
+/* Fallbacks if parent doesn't provide background via variables */
+html[data-theme="light"] .hero-viewport { background: var(--bg, #ffffff); }
+html[data-theme="dark"] .hero-viewport { background: var(--bg, #0b1220); }
+
+@media (max-width: 900px) {
+  /* Ensure mobile letterbox follows theme */
+  .hero-viewport { background: inherit !important; }
 }
 
 .hero-viewport .hero-bg {
@@ -732,8 +742,61 @@ html[data-theme="dark"] #theme-toggle:hover {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.32);
-    /* subtle dark overlay for readability */
+    /* default dark overlay for readability; themed below */
     z-index: 1;
+}
+
+/* Theme-specific overlay tint for readability */
+html[data-theme="light"] .hero-viewport::after {
+  background: rgba(255, 255, 255, 0.08);
+}
+html[data-theme="dark"] .hero-viewport::after {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+/* Ensure readability in light theme */
+html[data-theme="light"] .hero-content {
+  color: #0f172a;
+  text-shadow: none;
+}
+html[data-theme="dark"] .hero-content {
+  color: #ffffff;
+}
+
+/* Header brand visibility across themes */
+html[data-theme="light"] header .logo,
+html[data-theme="light"] header .brand-left {
+  color: #0f172a;
+}
+html[data-theme="dark"] header .logo,
+html[data-theme="dark"] header .brand-left {
+  color: #e2e8f0;
+}
+html[data-theme="light"] .logo .badge,
+html[data-theme="light"] .brand-left .brand-badge {
+  background: #e6f4ea;
+  color: #065f46;
+  border-color: #bbf7d0;
+}
+html[data-theme="dark"] .logo .badge,
+html[data-theme="dark"] .brand-left .brand-badge {
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+  border-color: rgba(255,255,255,0.18);
+}
+
+/* Make KPI chips and actions visible in light mode */
+html[data-theme="light"] .hero-counters .kpi,
+html[data-theme="light"] .hero-counters .actions a {
+  background: rgba(15,23,42,0.08) !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+}
+html[data-theme="light"] .hero-counters .actions .btn-outline {
+  background: var(--brand);
+  color: #ffffff;
+  border-color: var(--brand);
 }
 
 .hero-content {
