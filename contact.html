@@ -1,62 +1,93 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <head>
-  
-  <meta charset="utf-8"><!-- Google Search Console verification (paste your code) -->
-  <meta name="google-site-verification" content="PUT_YOUR_GOOGLE_SITE_VERIFICATION_CODE_HERE" />
-  <!-- Google Analytics placeholder: replace GA_MEASUREMENT_ID with your GA4 measurement id (G-XXXX) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script>
-  <!-- Meta Pixel placeholder: replace PIXEL_ID with your Facebook Pixel id -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','PIXEL_ID');fbq('track','PageView');</script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/></noscript>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact — EgyField</title>
-  <meta name="description" content="Request a quotation for export. Contact sales via email or WhatsApp.">
-  <link rel="icon" href="logo.png" type="image/png">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="canonical" href="https://egyfield.com/contact.html">
+
+    <meta charset="utf-8">
+    <!-- Google Search Console verification (paste your code) -->
+    <meta name="google-site-verification" content="PUT_YOUR_GOOGLE_SITE_VERIFICATION_CODE_HERE" />
+    <!-- Google Analytics placeholder: replace GA_MEASUREMENT_ID with your GA4 measurement id (G-XXXX) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    <!-- Meta Pixel placeholder: replace PIXEL_ID with your Facebook Pixel id -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact — EgyField</title>
+    <meta name="description" content="Request a quotation for export. Contact sales via email or WhatsApp.">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="canonical" href="https://egyfield.com/contact.html">
 </head>
+
 <body>
 
-<header>
-  <div class="container nav">
-    <a class="logo" href="index.html"><img src="logo.png" alt="EgyField logo" style="height:36px;margin-right:10px;border-radius:0px"/><span>EgyField</span><span class="badge">EXPORT</span></a>
-    <nav class="lang-toggle">
-      <a href="index.html" data-i18n="home">Home</a>
-      <a href="products.html" data-i18n="products">Products</a>
-      <a href="about.html" data-i18n="about">About</a>
-      <a href="certificates.html" data-i18n="certs">Certificates</a>
-      <a href="articles.html" data-i18n="articles">Articles</a>
-      <a class="btn" href="contact.html" data-i18n="contact">Contact</a>
-      <!-- <button onclick="setLang('ar')">AR</button>
+    <header>
+        <div class="container nav">
+            <a class="logo" href="index.html"><img src="logo.png" alt="EgyField logo" style="height:36px;margin-right:10px;border-radius:0px" /><span>EgyField</span><span class="badge">EXPORT</span></a>
+            <nav class="lang-toggle">
+                <a href="index.html" data-i18n="home">Home</a>
+                <a href="products.html" data-i18n="products">Products</a>
+                <a href="about.html" data-i18n="about">About</a>
+                <a href="certificates.html" data-i18n="certs">Certificates</a>
+                <a href="articles.html" data-i18n="articles">Articles</a>
+                <a class="btn" href="contact.html" data-i18n="contact">Contact</a>
+                <!-- <button onclick="setLang('ar')">AR</button>
       <button onclick="setLang('en')">EN</button> -->
-    </nav>
-  </div>
-</header>
+            </nav>
+        </div>
+    </header>
 
-<main class="container">
-  <section class="section">
-    <h2 data-i18n="contact_h2">Request a Quote</h2>
-    <p class="note" data-i18n="contact_p">Fill the form and we'll reply within 24h.</p>
-    
-<!-- Integration options: 
+    <main class="container">
+        <section class="section">
+            <h2 data-i18n="contact_h2">Request a Quote</h2>
+            <p class="note" data-i18n="contact_p">Fill the form and we'll reply within 24h.</p>
+
+            <!-- Integration options: 
   1) Default behavior opens mail client + WhatsApp (already implemented in JS).
   2) To save RFQs directly to Google Sheets / CRM: create a Google Form and paste its form action URL below into the form `action` attribute, or use a server endpoint (e.g., Google Apps Script or Formspree).
   3) Example Formspree action: https://formspree.io/f/your-form-id (replace 'your-form-id').
   4) After connecting, remove or adjust the mailto/wa behavior in assets/main.js.
 -->
-<div class="note" style="background:#fffbe6;border-left:4px solid #ffd43b;padding:10px;border-radius:8px;margin-bottom:12px">
-  <strong>Pro tip:</strong> To capture RFQs automatically into Google Sheets, create a Google Form and use its <em>action</em> URL here, or deploy a Google Apps Script as a web app and paste its endpoint in the form <code>action</code>. If you want, I can prepare a ready-to-use Google Apps Script (you'll need to authorize it) — tell me and I'll add it now.
-</div>
-<div class="contact">
-      <form id="rfq" method="POST" action="https://formspree.io/f/PUT_YOUR_FORM_ID">
-        <!-- <label for="company">Company</label> -->
-        <input name="name" required placeholder="Enter Your Company" aria-label="company" data-i18n="form_name" id="company">
-        <!-- <label for="email">Your Email</label> -->
-        <input name="email" type="email" required placeholder="Your Email" aria-label="email" data-i18n="form_email">
-        <input name="country" required placeholder="Your Country" aria-label="country" data-i18n="form_country">
-        <select name="product" aria-label="product" placeholder="Products">
+            <div class="note" style="background:#fffbe6;border-left:4px solid #ffd43b;padding:10px;border-radius:8px;margin-bottom:12px">
+                <strong>Pro tip:</strong> To capture RFQs automatically into Google Sheets, create a Google Form and use its <em>action</em> URL here, or deploy a Google Apps Script as a web app and paste its endpoint in the form <code>action</code>.
+                If you want, I can prepare a ready-to-use Google Apps Script (you'll need to authorize it) — tell me and I'll add it now.
+            </div>
+            <div class="contact">
+                <form id="rfq" method="POST" action="https://formspree.io/f/PUT_YOUR_FORM_ID">
+                    <!-- <label for="company">Company</label> -->
+                    <input name="name" required placeholder="Enter Your Company" aria-label="company" data-i18n="form_name" id="company">
+                    <!-- <label for="email">Your Email</label> -->
+                    <input name="email" type="email" required placeholder="Your Email" aria-label="email" data-i18n="form_email">
+                    <input name="country" required placeholder="Your Country" aria-label="country" data-i18n="form_country">
+                    <select name="product" aria-label="product" placeholder="Products">
           <option value="Tomatoes">Tomatoes</option>
           <option value="Cucumbers">Cucumbers</option>
           <option value="Potatoes">Potatoes</option>
@@ -143,11 +174,9 @@
         <p class="note">Or contact us directly: <a href="mailto:info@egyfield.com">info@egyfield.com</a> • <a href="tel:+20 128 208 4526">+20 128 208 4526</a> • <a href="tel:+20 120 252 4305">+20 120 252 4305</a> • <a target="_blank" href="https://wa.me/201282084526">WhatsApp 1</a> • <a target="_blank" href="https://wa.me/201202524305">WhatsApp 2</a></p>
       </form>
       <div>
-        <h3>EgyField</h3>
-        <p>Kafr Eldawar City, Elbehira, Egypt</p>
         <p><a href="https://www.linkedin.com/company/" target="_blank">LinkedIn</a></p>
         <iframe style="width:100%;height:240px;border:1px solid #e2e8f0;border-radius:12px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Kafr%20Eldawar%20City%2C%20Elbehira%2C%20Egypt&output=embed"></iframe>
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3417.1010815801783!2d30.086516275051324!3d31.079115168810972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5e13ebb423767%3A0xecc6d8c536eb9361!2zRWd5IGZpZWxkIHwg2KfZitis2Yog2YHZitmE2K8g2YTYqti12K_ZitixINin2YTYrti22LHZiNin2Kog2YjYp9mE2YHZiNin2YPZhw!5e0!3m2!1sen!2seg!4v1763136147463!5m2!1sen!2seg"></iframe>
       </div>
     </div>
   </section>
