@@ -1130,3 +1130,14 @@ html[data-theme="dark"] #theme-toggle:hover {
         flex-shrink: 0;
     }
 }
+
+/* Minimal anti-crop override for hero image on small screens */
+@media (max-width: 768px) {
+    .hero-viewport { height: 80dvh; min-height: 80dvh; padding-top: 0; }
+    .hero-viewport .hero-bg { margin: 0; }
+    .hero-viewport .hero-bg img {
+        object-fit: contain !important;
+        object-position: top center !important;
+    }
+    .hero-content { padding-top: 8px; }
+}
