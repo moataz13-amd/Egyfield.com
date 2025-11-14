@@ -755,7 +755,7 @@
               message: d.msg || ''
           };
           const GOOGLE_APPS_SCRIPT_WEBHOOK_URL = 'PUT_YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE';
-          const FORMSPREE_URL = 'https://formspree.io/f/PUT_YOUR_FORM_ID';
+          const FORMSPREE_URL = 'https://formspree.io/f/mwpalenp';
           try {
               if (GOOGLE_APPS_SCRIPT_WEBHOOK_URL && !GOOGLE_APPS_SCRIPT_WEBHOOK_URL.includes('PUT_YOUR')) {
                   await fetch(GOOGLE_APPS_SCRIPT_WEBHOOK_URL, {
@@ -768,6 +768,25 @@
                   Object.keys(payload).forEach(k => formData.append(k, payload[k]));
                   await fetch(FORMSPREE_URL, { method: 'POST', body: formData });
               } else {
+                  // Fallback: prepare email + WhatsApp message for manual sending
+                  try {
+                      const lines = [
+                          'New RFQ',
+                          `Company: ${payload.company}`,
+                          `Email: ${payload.email}`,
+                          `Country: ${payload.country}`,
+                          `Product: ${payload.product}`,
+                          `Quantity (MT): ${payload.quantity_mt}`,
+                          payload.message ? `Message: ${payload.message}` : ''
+                      ].filter(Boolean);
+                      const subject = encodeURIComponent(`RFQ: ${payload.product || 'EgyField'}`);
+                      const body = encodeURIComponent(lines.join('\n'));
+                      const mailto = `mailto:info@egyfield.com?subject=${subject}&body=${body}`;
+                      try { window.location.href = mailto; } catch (_) { window.open(mailto, '_self'); }
+                      const wa = `https://wa.me/201282084526?text=${body}`;
+                      try { window.open(wa, '_blank'); } catch (_) {}
+                  } catch (_) {}
+                  // Persist locally as a log
                   const log = JSON.parse(localStorage.getItem('rfq_log') || '[]');
                   log.push(payload);
                   localStorage.setItem('rfq_log', JSON.stringify(log));
